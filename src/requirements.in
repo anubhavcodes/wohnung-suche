@@ -1,2 +1,5 @@
 flask
 click
+attrs
+bs4
+requests

@@ -18,3 +18,7 @@ First run:
 Daily development
 `docker-compose start`
 This will start a development server on port 8005
+
+
+### Updating requirements.txt
+Add your package in `src/requirements.in` and then `./scripts/run-refresh-requirements`.
