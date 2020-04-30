@@ -61,4 +61,7 @@ class Immowelt(BaseScraper):
 
     @property
     def images(self) -> List[str]:
-        return [""]
+        try:
+            return [div.find("img").attrs.get("src") for div in self.soup.findAll("div", {"class": "carousel-item"})]
+        except (AttributeError, IndexError, TypeError):
+            return []
