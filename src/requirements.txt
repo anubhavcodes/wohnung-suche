@@ -16,6 +16,7 @@ itsdangerous==1.1.0       # via flask
 jinja2==2.11.2            # via flask
 markupsafe==1.1.1         # via jinja2
 requests==2.23.0
+selenium==3.141.0
 soupsieve==2.0            # via beautifulsoup4
-urllib3==1.25.9           # via requests
+urllib3==1.25.9           # via requests, selenium
 werkzeug==1.0.1           # via flask
