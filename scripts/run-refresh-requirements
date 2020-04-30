@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# go back to the root directory
+cd "${0%/*}/.."
+
+echo "Updating requirements..."
+docker run -v $PWD/src:/srv --rm valian/python-qa pip-compile requirements.in

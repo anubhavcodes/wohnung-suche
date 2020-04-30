@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+
+  app:
+    build: src
+    ports:
+    - 8005:5000
+    environment:
+    - FLASK_ENV=development
+    - DEBUG=true
+    command: ["python", "app.py"]
+    volumes:
+    - $PWD/src:/srv

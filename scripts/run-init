@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+#go back to the root directory
+cd "${0%/*}/.."
+
+echo "Building images"
+docker-compose build
+
+echo "Installing hooks"
+pre-commit install
+
+echo "All set now!! You can start developing."
+echo "Run dc up -d to start the app"
