@@ -3,11 +3,13 @@
 #go back to the root directory
 cd "${0%/*}/.."
 
+# make sure you have `pre-commit` installed
+
 echo "Building images"
 docker-compose build
 
-echo "Installing hooks"
+echo "Installing hooks, please install pre-commit before this."
 pre-commit install
 
 echo "All set now!! You can start developing."
-echo "Run dc up -d to start the app"
+echo "Run docker-compose up -d to start the app"
