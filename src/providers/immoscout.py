@@ -60,9 +60,10 @@ class Immoscout(BaseScraper):
     @property
     def images(self) -> Set[str]:
         try:
-            return {
+            images = {
                 list(div.children)[1].attrs.get("data-src")
                 for div in self.soup.findAll("div", {"class": "sp-thumbnail"})
             }
+            return {url[: url.find("/ORIG")] for url in images}
         except (ValueError, TypeError, AttributeError, IndexError):
-            return {}
+            return set()
