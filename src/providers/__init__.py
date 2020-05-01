@@ -1,7 +1,8 @@
 from time import sleep
-from typing import Dict, List
+from typing import Dict, Set
 
 import attr
+import requests
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
@@ -12,7 +13,10 @@ class BaseScraper:
     url = attr.ib()
     headers = {"User-Agent": "github.com/anubhavcodes/wohnung-suche"}
 
-    def get_soup(self):
+    def get_soup(self, use_requests=False):
+        if use_requests:
+            r = requests.get(self.url, headers=self.headers)
+            return BeautifulSoup(r.text, "html.parser")
         opts = Options()
         opts.headless = True
         browser = Firefox(options=opts)
@@ -29,6 +33,7 @@ class BaseScraper:
             "address": self.address,
             "size": self.size,
             "construction_year": self.construction_year,
+            "images": self.images,
         }
 
     @property
@@ -60,5 +65,5 @@ class BaseScraper:
         raise NotImplementedError
 
     @property
-    def images(self) -> List:
+    def images(self) -> Set[str]:
         raise NotImplementedError

@@ -1,4 +1,4 @@
-from typing import List
+from typing import Set
 
 from providers import BaseScraper
 
@@ -60,8 +60,8 @@ class Immowelt(BaseScraper):
             return "Unable to extract size"
 
     @property
-    def images(self) -> List[str]:
+    def images(self) -> Set[str]:
         try:
-            return [div.find("img").attrs.get("src") for div in self.soup.findAll("div", {"class": "carousel-item"})]
+            return {div.find("img").attrs.get("src") for div in self.soup.findAll("div", {"class": "carousel-item"})}
         except (AttributeError, IndexError, TypeError):
-            return []
+            return {}
