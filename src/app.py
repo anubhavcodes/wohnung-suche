@@ -8,7 +8,7 @@ def hello_world():
     return "Hello World!"
 
 
-@app.route("/trello")
+@app.route("/trello", methods=["POST"])
 def trello_webhook():
     return jsonify({"message": "okay"})
 
