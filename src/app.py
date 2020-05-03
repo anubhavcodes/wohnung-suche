@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -10,6 +10,7 @@ def hello_world():
 
 @app.route("/trello", methods=["POST"])
 def trello_webhook():
+    print(request.data)
     return jsonify({"message": "okay"})
 
 
