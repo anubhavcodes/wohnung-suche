@@ -15,6 +15,7 @@ idna==2.9                 # via requests
 itsdangerous==1.1.0       # via flask
 jinja2==2.11.2            # via flask
 markupsafe==1.1.1         # via jinja2
+python-trello==0.0.2
 requests==2.23.0
 selenium==3.141.0
 soupsieve==2.0            # via beautifulsoup4
