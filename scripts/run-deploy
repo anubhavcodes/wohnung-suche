@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# go back to the root directory
+cd "${0%/*}/.."
+
+echo "Deploying latest version of wohnung-suche"
+docker-compose build
+docker-compose up -d
+
+echo "Project started"
