@@ -4,4 +4,4 @@ attrs
 bs4
 requests
 selenium
-python-trello==0.0.2
+pytest
