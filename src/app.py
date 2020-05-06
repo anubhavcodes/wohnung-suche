@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from utils import validate_url
 
 app = Flask(__name__)
+app.config.from_object("config.Config")
 
 
 @app.route("/")
