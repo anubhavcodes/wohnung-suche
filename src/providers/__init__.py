@@ -1,5 +1,5 @@
 from time import sleep
-from typing import Dict, Set
+from typing import Dict, List
 
 import attr
 import requests
@@ -33,7 +33,7 @@ class BaseScraper:
             "address": self.address,
             "size": self.size,
             "construction_year": self.construction_year,
-            "images": self.images,
+            "images": self.images or "",
         }
 
     @property
@@ -65,5 +65,5 @@ class BaseScraper:
         raise NotImplementedError
 
     @property
-    def images(self) -> Set[str]:
+    def images(self) -> List[str]:
         raise NotImplementedError

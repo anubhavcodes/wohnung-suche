@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Set
+from typing import List
 
 from providers import BaseScraper
 
@@ -58,12 +58,12 @@ class Immoscout(BaseScraper):
             return "Unable to extract construction year"
 
     @property
-    def images(self) -> Set[str]:
+    def images(self) -> List[str]:
         try:
             images = {
                 list(div.children)[1].attrs.get("data-src")
                 for div in self.soup.findAll("div", {"class": "sp-thumbnail"})
             }
-            return {url[: url.find("/ORIG")] for url in images}
+            return list({url[: url.find("/ORIG")] for url in images})
         except (ValueError, TypeError, AttributeError, IndexError):
-            return set()
+            return []
