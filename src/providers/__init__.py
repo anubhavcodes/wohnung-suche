@@ -34,6 +34,7 @@ class BaseScraper:
             "size": self.size,
             "construction_year": self.construction_year,
             "images": self.images or "",
+            "url": self.url,
         }
 
     @property
