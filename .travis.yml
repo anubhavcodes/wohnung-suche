@@ -12,8 +12,5 @@ services:
 before_install:
   - docker image build -t "wohnung-suche:latest" -f src/Dockerfile src/
 
-install:
-  - pip install -r requirements
-
 script:
-  - pytest
+  - docker container run --rm wohnung-suche pytest
