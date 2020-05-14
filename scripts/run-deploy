@@ -3,7 +3,7 @@
 # go back to the root directory
 cd "${0%/*}/.."
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin hub.docker.com
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 echo "Pushing built image to docker registry"
 docker tag wohnung-suche:latest anubhavcodes/wohnung-suche
 docker push anubhavcodes/wohnung-suche
