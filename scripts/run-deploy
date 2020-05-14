@@ -3,8 +3,6 @@
 # go back to the root directory
 cd "${0%/*}/.."
 
-echo "Deploying latest version of wohnung-suche"
-docker-compose build
-docker-compose up -d
-
-echo "Project started"
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin hub.docker.com
+echo "Pushing built image to docker registry"
+docker push anubhavcodes/wohnung-suche
