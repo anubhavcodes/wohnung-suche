@@ -3,7 +3,9 @@ from urllib.parse import urlparse
 
 import click
 from app import PROVIDERS
-from utils import validate_url
+from utils import configure_sentry, validate_url
+
+configure_sentry()
 
 
 @click.command()

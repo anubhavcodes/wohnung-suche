@@ -1,5 +1,7 @@
+import os
+
 import pytest
-from utils import validate_url
+from utils import get_environment_variable, validate_url
 
 
 @pytest.mark.parametrize(
@@ -30,3 +32,15 @@ def test_validate_url_validates_correct_url(url):
 )
 def test_validate_url_returns_false_for_invalid_url(url):
     assert not validate_url(url)
+
+
+def test_get_environment_variable():
+    os.environ["FOO"] = "21"
+    value = get_environment_variable("FOO", int)
+    assert value == 21
+    os.environ["FOO"] = "21"
+    value = get_environment_variable("FOO", str)
+    assert value == "21"
+    assert get_environment_variable("BAR", int, default=22) == 22
+    with pytest.raises(TypeError):
+        get_environment_variable("BAZ", type=int, default=None)

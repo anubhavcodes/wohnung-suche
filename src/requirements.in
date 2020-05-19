@@ -1,4 +1,5 @@
 flask
+sentry-sdk[flask]
 click
 attrs
 bs4
