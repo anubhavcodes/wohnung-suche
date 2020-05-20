@@ -2,6 +2,7 @@ import os
 from urllib.parse import urlparse
 
 from exception import EnvironmentVariableError
+from sentry_sdk.utils import BadDsn
 
 
 def validate_url(url: str) -> bool:
@@ -23,17 +24,23 @@ def validate_url(url: str) -> bool:
 def get_environment_variable(key: str, type, default=None):
     try:
         value = os.environ.get(key, default=default)
+        if not value:
+            return None
         return type(value)
-    except TypeError:
-        raise TypeError(f"Error coercing {key} to {type}")
+    except ValueError:
+        raise ValueError(f"Error coercing {key} to {type}")
     except Exception as e:
         raise EnvironmentVariableError(f"Error reading {key} from the environment: {e}")
 
 
 def configure_sentry():
     sentry_dsn = get_environment_variable("SENTRY_DSN", str, default=None)
-    if sentry_dsn:
+    if not sentry_dsn:
+        return
+    try:
         import sentry_sdk
         from sentry_sdk.integrations.flask import FlaskIntegration
 
         sentry_sdk.init(dsn=sentry_dsn, integrations=[FlaskIntegration()])
+    except BadDsn:
+        raise BadDsn(f"Unable to init sentry with {sentry_dsn}")

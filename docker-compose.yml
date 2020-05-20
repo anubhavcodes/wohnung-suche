@@ -9,6 +9,7 @@ services:
     environment:
     - FLASK_ENV=development
     - DEBUG=true
+    - SENTRY_DSN=$SENTRY_DSN
     command: ["python", "app.py"]
     volumes:
     - $PWD/src:/srv

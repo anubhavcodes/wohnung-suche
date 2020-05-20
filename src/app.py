@@ -4,15 +4,15 @@ from urllib.parse import urlparse
 from flask import Flask, jsonify, request
 from providers.immoscout import Immoscout
 from providers.immowelt import Immowelt
-from utils import validate_url
+from utils import configure_sentry, validate_url
 
 app = Flask(__name__)
 app.config.from_object("config.Config")
 
 logger = logging.getLogger(__name__)
+configure_sentry()
 
 
-# @TODO Remove www to raise excpetion for testing integration with sentry.
 PROVIDERS = {"www.immowelt.de": Immowelt, "www.immobilienscout24.de": Immoscout}
 
 
@@ -33,7 +33,7 @@ def api():
         if result:
             return jsonify({"message": "Success", "url": url, "result": result}), 200
     except Exception as e:
-        raise (e)
+        raise e
 
 
 if __name__ == "__main__":

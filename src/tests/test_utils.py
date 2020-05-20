@@ -42,5 +42,7 @@ def test_get_environment_variable():
     value = get_environment_variable("FOO", str)
     assert value == "21"
     assert get_environment_variable("BAR", int, default=22) == 22
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
+        os.environ["BAZ"] = "abcd"
         get_environment_variable("BAZ", type=int, default=None)
+    assert not get_environment_variable("SENTRY_DSN", str, default=None)
