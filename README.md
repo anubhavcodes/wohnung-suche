@@ -1,4 +1,5 @@
 ### Wohnung suche via Trello
+![build status](https://travis-ci.com/anubhavcodes/wohnung-suche.svg?branch=master)
 
 I have been searching for apartments in Germany, and it's not so easy to track the people I have contacted.
 I have been using Trello but there is a lot of manual work involved.
@@ -6,6 +7,10 @@ I have been using Trello but there is a lot of manual work involved.
 This project will help automating most of the things I do. As soon as I create a card and post the url of the apartment
 a webhook will be called which scrapes the content from the link and update the card. This is the code for the server responsible
 for responding to the webhooks.
+
+### Status
+
+[![asciicast](https://asciinema.org/a/343125.svg)](https://asciinema.org/a/343125)
 
 ### Usage
 
@@ -25,4 +30,4 @@ Add your package in `src/requirements.in` and then `./scripts/run-refresh-requir
 
 ### Todo
 
-- [ ] Integrate sentry.
+- [x] Integrate sentry.
