@@ -13,10 +13,9 @@ def validate_url(url: str) -> bool:
         result = urlparse(url)
         if not all([result.scheme in ["http", "https"], result.netloc, result.path]):
             return False
-    except Exception:
+    except KeyError:
         return False
     if result.netloc not in ["www.immowelt.de", "www.immobilienscout24.de"]:
-        # @TODO: add a logger here and send the url to sentry
         return False
     return True
 
