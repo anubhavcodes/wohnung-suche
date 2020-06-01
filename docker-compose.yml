@@ -3,7 +3,7 @@ version: "2"
 services:
 
   app:
-    build: src
+    build: .
     ports:
     - 80:5000
     environment:
