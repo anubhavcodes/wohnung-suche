@@ -17,8 +17,8 @@ PROVIDERS = {"www.immowelt.de": Immowelt, "www.immobilienscout24.de": Immoscout}
 
 
 @app.route("/")
-def hello_world():
-    return "Hello World!"
+def health_check():
+    return jsonify({"message": "Status OK", "details": "This is not where you should be."})
 
 
 @app.route("/api", methods=["GET"])
