@@ -3,4 +3,4 @@
 # go back to the root directory
 cd "${0%/*}/.."
 
-docker-compose build && docker container run --rm wohnung-suche_app --entrypoint "pytest -vvv"
+docker-compose build && docker container run --rm wohnung-suche_app pytest -vvv

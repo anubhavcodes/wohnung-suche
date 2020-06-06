@@ -9,10 +9,10 @@ RUN apt-get update \
 
 WORKDIR /srv
 
-COPY src/requirements.txt .
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY src/ .
+COPY . .
 
-ENTRYPOINT ["python", "app.py"]
+CMD ["python", "app.py"]

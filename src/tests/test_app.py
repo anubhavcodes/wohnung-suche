@@ -8,9 +8,9 @@ def client():
         yield client
 
 
-def test_base_url_returns_correct_endpoint(client):
+def test_base_url_returns_correct_status(client):
     rv = client.get("/")
-    assert b"Hello World" in rv.data
+    assert rv.status_code == 200
 
 
 def test_api_endpoint_returns_error_for_no_url(client):
