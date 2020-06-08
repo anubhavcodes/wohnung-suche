@@ -2,11 +2,13 @@ import logging
 from urllib.parse import urlparse
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from providers.immoscout import Immoscout
 from providers.immowelt import Immowelt
 from utils import configure_sentry, validate_url
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config.from_object("config.Config")
 
 logger = logging.getLogger(__name__)

@@ -1,5 +1,6 @@
 flask
 sentry-sdk[flask]
+flask-cors
 click
 attrs
 bs4
