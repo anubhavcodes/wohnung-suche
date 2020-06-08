@@ -14,7 +14,6 @@ app.config.from_object("config.Config")
 logger = logging.getLogger(__name__)
 configure_sentry()
 
-
 PROVIDERS = {"www.immowelt.de": Immowelt, "www.immobilienscout24.de": Immoscout}
 
 
@@ -36,6 +35,12 @@ def api():
             return jsonify({"message": "Success", "url": url, "result": result}), 200
     except Exception as e:
         raise e
+
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    logger.debug(request.data)
+    return jsonify({"status": "ok"}), 200
 
 
 if __name__ == "__main__":
