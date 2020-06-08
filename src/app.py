@@ -39,9 +39,16 @@ def api():
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    model = request.json.get("model")
     action = request.json.get("action")
-    return jsonify({"model": model, "action": action}), 200
+    board_id = card_id = None
+    if action == "createCard":
+        board = action["data"].get("board")
+        if board:
+            board_id = board.get("id")
+        card = action["data"].get("card")
+        if card:
+            card_id = card.get("id")
+    return jsonify({"card_id": card_id, "board_id": board_id}), 200
 
 
 if __name__ == "__main__":
