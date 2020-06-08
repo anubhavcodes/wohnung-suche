@@ -39,7 +39,7 @@ def api():
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    logger.debug(request.data)
+    logger.info(request.data)
     return jsonify({"status": "ok"}), 200
 
 
