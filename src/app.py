@@ -39,8 +39,9 @@ def api():
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    logger.info(request.data)
-    return jsonify({"status": "ok"}), 200
+    model = request.json.get("model")
+    action = request.json.get("action")
+    return jsonify({"model": model, "action": action}), 200
 
 
 if __name__ == "__main__":
