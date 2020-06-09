@@ -2,8 +2,7 @@ from pprint import pprint
 from urllib.parse import urlparse
 
 import click
-from app import PROVIDERS
-from utils import configure_sentry, validate_url
+from utils import PROVIDERS, configure_sentry, validate_url
 
 configure_sentry()
 

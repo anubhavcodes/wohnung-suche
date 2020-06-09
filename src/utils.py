@@ -2,6 +2,8 @@ import os
 from urllib.parse import urlparse
 
 from exception import EnvironmentVariableError
+from providers.immoscout import Immoscout
+from providers.immowelt import Immowelt
 from sentry_sdk.utils import BadDsn
 
 
@@ -43,3 +45,6 @@ def configure_sentry():
         sentry_sdk.init(dsn=sentry_dsn, integrations=[FlaskIntegration()])
     except BadDsn:
         raise BadDsn(f"Unable to init sentry with {sentry_dsn}")
+
+
+PROVIDERS = {"www.immowelt.de": Immowelt, "www.immobilienscout24.de": Immoscout}

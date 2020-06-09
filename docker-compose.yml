@@ -2,6 +2,12 @@ version: "2"
 
 services:
 
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+
+
   app:
     build: ./src
     ports:
@@ -10,6 +16,19 @@ services:
     - FLASK_ENV=development
     - DEBUG=true
     - SENTRY_DSN=$SENTRY_DSN
+    - REDIS_URL=redis://redis:6379
     command: ["python", "app.py"]
     volumes:
     - $PWD/src:/srv
+    depends_on:
+      - redis
+
+  worker:
+    build: ./src
+    command: ["rq", "worker", "--sentry-dsn", "${SENTRY_DSN}", "--url", "redis://redis:6379", "cardupdater"]
+    environment:
+      - TRELLO_TOKEN=$TRELLO_TOKEN
+      - TRELLO_KEY=$TRELLO_KEY
+    depends_on:
+      - app
+      - redis

@@ -1,20 +1,21 @@
 import logging
 from urllib.parse import urlparse
 
+import rq
+from config import Config
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from providers.immoscout import Immoscout
-from providers.immowelt import Immowelt
-from utils import configure_sentry, validate_url
+from redis import Redis
+from utils import PROVIDERS, configure_sentry, validate_url
 
 app = Flask(__name__)
+app.config.from_object(Config)
+app.redis = Redis.from_url(app.config["REDIS_URL"])
+app.task_queue = rq.Queue("cardupdater", connection=app.redis)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-app.config.from_object("config.Config")
 
 logger = logging.getLogger(__name__)
 configure_sentry()
-
-PROVIDERS = {"www.immowelt.de": Immowelt, "www.immobilienscout24.de": Immoscout}
 
 
 @app.route("/")
@@ -40,15 +41,17 @@ def api():
 @app.route("/webhook", methods=["POST"])
 def webhook():
     action = request.json.get("action")
-    board_id = card_id = None
-    if action == "createCard":
+    card_id = None
+    if action["type"] == "createCard":
         board = action["data"].get("board")
         if board:
-            board_id = board.get("id")
-        card = action["data"].get("card")
+            card = action["data"].get("card")
         if card:
             card_id = card.get("id")
-    return jsonify({"card_id": card_id, "board_id": board_id}), 200
+    if not card_id:
+        return jsonify({"message": "card not found", "action": action})
+    app.task_queue.enqueue("task.process_card", card_id)
+    return jsonify({"message": "queued"}), 200
 
 
 if __name__ == "__main__":

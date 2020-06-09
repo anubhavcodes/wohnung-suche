@@ -1,9 +1,12 @@
 flask
 sentry-sdk[flask]
 flask-cors
+rq
 click
 attrs
 bs4
 requests
 selenium
 pytest
+python-trello
+redis
