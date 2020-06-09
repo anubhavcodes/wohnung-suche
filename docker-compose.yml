@@ -3,7 +3,7 @@ version: "2"
 services:
 
   redis:
-    image: redis:latest
+    image: redis:6.0.5
     ports:
       - 6379:6379
 
@@ -25,10 +25,11 @@ services:
 
   worker:
     build: ./src
-    command: ["rq", "worker", "--sentry-dsn", "${SENTRY_DSN}", "--url", "redis://redis:6379", "cardupdater"]
     environment:
       - TRELLO_TOKEN=$TRELLO_TOKEN
       - TRELLO_KEY=$TRELLO_KEY
+      - REDIS_URL=$REDIS_URL
+    command: ["rq", "worker", "--sentry-dsn", "${SENTRY_DSN}", "--url", "{REDIS_URL}", "cardupdater"]
     depends_on:
       - app
       - redis
