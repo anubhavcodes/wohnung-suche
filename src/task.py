@@ -2,10 +2,9 @@ import logging
 from typing import Dict, Tuple
 from urllib.parse import urlparse
 
-from app import app
 from exception import CardNotFoundException, ConfigurationError
 from trello import Trello
-from utils import PROVIDERS, validate_url
+from utils import PROVIDERS, get_environment_variable, validate_url
 
 logger = logging.getLogger(__name__)
 
@@ -21,9 +20,11 @@ def get_formatted_info(result: Dict) -> Tuple[str, str]:
 
 
 def process_card(card_id: str):
-    if not all([app.config["TRELLO_TOKEN"], app.config["TRELLO_KEY"]]):
-        raise ConfigurationError("Please set TRELLO API KEY and TRELLO SECRET")
-    t = Trello(trello_key=app.config["TRELLO_KEY"], trello_token=app.config["TRELLO_TOKEN"])
+    trello_key = get_environment_variable("TRELLO_KEY", str, default=None)
+    trello_token = get_environment_variable("TRELLO_TOKEN", str, default=None)
+    if not any([trello_key, trello_token]):
+        raise ConfigurationError("Please set TRELLO_TOKEN and TRELLO_KEY")
+    t = Trello(trello_key=trello_key, trello_token=trello_token)
     card = t.get_card(card_id=card_id)
     if not card:
         raise CardNotFoundException(f"Card with id {card_id} does not exists.")
@@ -36,4 +37,4 @@ def process_card(card_id: str):
     name, desc = get_formatted_info(result)
     t.update_card(card_id=card_id, name=name, desc=desc)
     for attachment in result["images"]:
-        t.add_attachment_to_card(card_id=card_id, attachment_url=attachment)
+        t.add_attachment_to_card(card_id=card_id, attachment_url=attachment, name=attachment.split("/")[-1])
