@@ -4,3 +4,11 @@ class Error(Exception):
 
 class EnvironmentVariableError(Error):
     pass
+
+
+class ConfigurationError(Error):
+    pass
+
+
+class CardNotFoundException(Error):
+    pass
