@@ -38,3 +38,4 @@ def process_card(card_id: str):
     t.update_card(card_id=card_id, name=name, desc=desc)
     for attachment in result["images"]:
         t.add_attachment_to_card(card_id=card_id, attachment_url=attachment, name=attachment.split("/")[-1])
+    t.add_attachment_to_card(card_id=card_id, attachment_url=url, name="original url")
