@@ -29,7 +29,7 @@ services:
       - TRELLO_TOKEN=$TRELLO_TOKEN
       - TRELLO_KEY=$TRELLO_KEY
       - REDIS_URL=$REDIS_URL
-    command: ["rq", "worker", "--sentry-dsn", "${SENTRY_DSN}", "--url", "{REDIS_URL}", "cardupdater"]
+    command: ["rq", "worker", "--sentry-dsn", "${SENTRY_DSN}", "--url", "${REDIS_URL}", "cardupdater"]
     depends_on:
       - app
       - redis

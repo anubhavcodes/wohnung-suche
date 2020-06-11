@@ -13,6 +13,11 @@ def test_base_url_returns_correct_status(client):
     assert rv.status_code == 200
 
 
+def test_webhook_url_returns_200_for_head_requests(client):
+    rv = client.head("/webhook")
+    assert rv.status_code == 200
+
+
 def test_api_endpoint_returns_error_for_no_url(client):
     rv = client.get("/api")
     assert rv.status_code == 401
