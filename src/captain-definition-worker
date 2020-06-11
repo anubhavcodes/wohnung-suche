@@ -1,0 +1,7 @@
+{
+  "schemaVersion" :2 ,
+  "dockerfileLines": [
+                        "FROM anubhavcodes/wohnung-suche:latest",
+                        "CMD [ \"rq\", \"worker\", \"--sentry-dsn\", \"https://7e9e7c0fe7e04abcbc2e29fa8e62771b@o344865.ingest.sentry.io/5291132\", \"--url\", \"redis://srv-captain--cardupdater-redis:6379\", \"cardupdater\"]"
+                    ]
+ }
