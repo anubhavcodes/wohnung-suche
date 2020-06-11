@@ -14,9 +14,3 @@ before_install:
 
 script:
   - docker container run --rm wohnung-suche pytest
-
-deploy:
-  provider: script
-  script: bash scripts/run-deploy
-  on:
-    branch: master
