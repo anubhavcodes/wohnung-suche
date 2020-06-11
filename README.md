@@ -34,3 +34,4 @@ Add your package in `src/requirements.in` and then `./scripts/run-refresh-requir
 - [x] Deploy on a cloud provider using self hosted PaaS
 - [x] Integrate a CI service like Travis
 - [x] Enable continuous deployments.
+- [x] Make integration working on Trello.
