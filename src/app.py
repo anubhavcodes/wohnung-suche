@@ -38,8 +38,10 @@ def api():
         raise e
 
 
-@app.route("/webhook", methods=["POST"])
+@app.route("/webhook", methods=["POST", "HEAD"])
 def webhook():
+    if request.method == "HEAD":
+        return jsonify({"message": "Hello Trello!!! This api works."}), 200
     action = request.json.get("action")
     card_id = None
     if action["type"] == "createCard":
