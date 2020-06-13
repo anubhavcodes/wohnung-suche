@@ -67,3 +67,8 @@ class Immowelt(BaseScraper):
             )
         except (AttributeError, IndexError, TypeError):
             return []
+
+    @property
+    def is_active(self) -> bool:
+        # @TODO Implement this when you encounter a deactivated listing.
+        return True

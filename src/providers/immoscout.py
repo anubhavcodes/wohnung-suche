@@ -67,3 +67,10 @@ class Immoscout(BaseScraper):
             return list({url[: url.find("/ORIG")] for url in images})
         except (ValueError, TypeError, AttributeError, IndexError):
             return []
+
+    @property
+    def is_active(self) -> bool:
+        try:
+            return not any([header for header in self.soup.findAll("h3") if header.text == "Angebot wurde deaktiviert"])
+        except Exception:
+            raise Exception(f"Error occured when trying to check if {self.url} is active")

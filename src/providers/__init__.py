@@ -26,15 +26,15 @@ class BaseScraper:
 
     def scrape(self) -> Dict:
         return {
-            "title": self.title,
-            "cold_rent": self.cold_rent,
-            "warm_rent": self.warm_rent,
-            "available_from": self.available_from,
-            "address": self.address,
-            "size": self.size,
-            "construction_year": self.construction_year,
-            "images": self.images or "",
-            "url": self.url,
+            "title": self.title if self.is_active else "DEACTIVATED",
+            "cold_rent": self.cold_rent if self.is_active else "DEACTIVATED",
+            "warm_rent": self.warm_rent if self.is_active else "DEACTIVATED",
+            "available_from": self.available_from if self.is_active else "DEACTIVATED",
+            "address": self.address if self.is_active else "DEACTIVATED",
+            "size": self.size if self.is_active else "DEACTIVATED",
+            "construction_year": self.construction_year if self.is_active else "DEACTIVATED",
+            "images": self.images or "" if self.is_active else "DEACTIVATED",
+            "url": self.url if self.is_active else [],
         }
 
     @property
@@ -67,4 +67,8 @@ class BaseScraper:
 
     @property
     def images(self) -> List[str]:
+        raise NotImplementedError
+
+    @property
+    def is_active(self) -> bool:
         raise NotImplementedError
