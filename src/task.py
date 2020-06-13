@@ -31,6 +31,7 @@ def process_card(card_id: str):
     url = card["name"]
     if not validate_url(url):
         logger.info(f"Found a card without a valid url... skipping {card_id}: {url}")
+    logger.info(f"Processing card with url: {url}")
     result = PROVIDERS[urlparse(url).netloc](url=url).scrape()
     if not result:
         raise ValueError(f"Unable to parse {url}... Check logs")
