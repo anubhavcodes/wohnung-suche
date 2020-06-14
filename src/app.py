@@ -34,6 +34,9 @@ def api():
         result = PROVIDERS[urlparse(url).netloc](url=url).scrape()
         if result:
             return jsonify({"message": "Success", "url": url, "result": result}), 200
+    except KeyError as e:
+        logger.debug(f"Unable to extract the provider from the url: {url}")
+        raise e
     except Exception as e:
         raise e
 
