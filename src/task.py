@@ -1,4 +1,6 @@
 import logging
+from random import randint
+from time import sleep
 from typing import Dict, Tuple
 from urllib.parse import urlparse
 
@@ -20,6 +22,7 @@ def get_formatted_info(result: Dict) -> Tuple[str, str]:
 
 
 def process_card(card_id: str):
+    sleep(randint(1, 5))  # sleep randomly
     trello_key = get_environment_variable("TRELLO_KEY", str, default=None)
     trello_token = get_environment_variable("TRELLO_TOKEN", str, default=None)
     if not any([trello_key, trello_token]):
